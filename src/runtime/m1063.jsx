@@ -1,0 +1,315 @@
+// module 1063 exports: u, N, e, O, l, Q, x, M, s, X, a, o, p, t, T, R, W, n, F
+
+
+function e(t, a, s, i, o, n, r = -Math.PI / 2, h = 0) {
+  let l = h * Math.PI / 180,
+    c = (e, o) => {
+      let n = Math.cos(e) * (s + o),
+        r = Math.sin(e) * (i + i / s * o);
+      return `${(t + n * Math.cos(l) - r * Math.sin(l)).toFixed(1)} ${(a + n * Math.sin(l) + r * Math.cos(l)).toFixed(1)}`;
+    },
+    d = "";
+  for (let t = 0; t < o; t++) {
+    let e = r + t / o * Math.PI * 2,
+      a = r + (t + 1) / o * Math.PI * 2,
+      s = (e + a) / 2;
+    d += `${0 === t ? `M${c(e, 0)}` : ""}Q${c(s, 2.1 * n)} ${c(a, 0)}`;
+  }
+  return `${d}Z`;
+}
+let a = [196, 206],
+  s = [212, 100],
+  i = [186, 194],
+  o = [168, 192],
+  n = [110, 194],
+  r = [94, 192],
+  h = [84, 150],
+  l = [174, 82],
+  c = [250, 82],
+  d = {
+    body: e(140, 170, 64, 36, 15, 3.4, .95 * Math.PI),
+    chest: e(192, 166, 30, 32, 9, 3.2, .6 * Math.PI),
+    tail: e(70, 126, 17, 16, 9, 3.2),
+    tailStem: "M86 152 C80 146 76 140 74 136",
+    haunch: e(110, 204, 30, 24, 10, 3.2, Math.PI),
+    haunchPaw: "M112 214 C126 212 142 214 146 221 C148 226 144 229 136 229 L116 229 C108 229 104 224 106 219 Z",
+    head: e(212, 100, 51, 46, 16, 3.6),
+    topknot: e(212, 52, 17, 12, 8, 2.9, Math.PI),
+    earL: e(170, 112, 19, 34, 10, 3.2, -Math.PI / 2, 12),
+    earR: e(254, 112, 19, 34, 10, 3.2, -Math.PI / 2, -12),
+    muzzle: "M188 120 C188 106 200 100 212 100 C224 100 236 106 236 120 C236 133 225 140 212 140 C199 140 188 133 188 120 Z",
+    nose: "M204.5 111.5 Q212 107.2 219.5 111.5 Q218.2 118.4 212 120 Q205.8 118.4 204.5 111.5 Z",
+    mouth: "M212 120 V124.5 M212 124.5 Q207.2 129.6 202.8 125.2 M212 124.5 Q216.8 129.6 221.2 125.2",
+    mouthOpen: "M203 126 Q212 122 221 126 Q219 138 212 139 Q205 138 203 126 Z",
+    tongue: "M207.6 127.4 Q212 136.6 216.4 127.4 Z",
+    collar: "M178 146 Q212 162 246 146 L246 154 Q212 170 178 154 Z",
+    tag: "M212 160 C212 156 206 155 206 159.4 C206 163 212 166.6 212 168.4 C212 166.6 218 163 218 159.4 C218 155 212 156 212 160 Z",
+    ledgePaws: "M175 159 C175 148 181 142 190 142 C199 142 205 148 205 159 Z M219 159 C219 148 225 142 234 142 C243 142 249 148 249 159 Z",
+    ledgeToes: "M186 153 v-4.5 M194 153 v-4.5 M230 153 v-4.5 M238 153 v-4.5",
+    shadow: {
+      cx: 150,
+      cy: 230,
+      rx: 92,
+      ry: 7
+    }
+  };
+function f(t, e) {
+  let a = t / 2;
+  return `M${-a} -14 C${-a} 4 -12 ${e - 18} -12 ${e - 9} C-12 ${e - 2} -7 ${e} 0 ${e} C9 ${e} 13 ${e - 3} 13 ${e - 9} C13 ${e - 18} ${a} 4 ${a} -14`;
+}
+let p = {
+    front: f(24, 228 - i[1]),
+    frontFar: f(22, 228 - o[1]),
+    back: f(30, 228 - n[1]),
+    backFar: f(28, 228 - r[1])
+  },
+  g = {
+    bodyRot: 0,
+    bodyX: 0,
+    bodyY: 0,
+    stretch: 1,
+    headX: 0,
+    headY: 0,
+    headRot: 0,
+    earL: 0,
+    earR: 0,
+    tail: 0,
+    fn: 0,
+    ff: 0,
+    bn: 0,
+    bf: 0,
+    sit: 0,
+    eyes: 1,
+    happy: 0,
+    tongue: 0,
+    mouth: 0,
+    front: 0
+  },
+  u = {
+    stand: g,
+    walk: {
+      ...g,
+      tail: -6,
+      tongue: 1
+    },
+    sit: {
+      ...g,
+      bodyRot: -24,
+      bodyY: -2,
+      headX: -10,
+      headY: -6,
+      tail: 34,
+      sit: 1,
+      tongue: 1
+    },
+    peek: {
+      ...g,
+      headY: 4,
+      earL: -6,
+      earR: 6,
+      tail: -20,
+      front: 1,
+      tongue: 1
+    },
+    snug: {
+      ...g,
+      headY: 9,
+      headRot: 4,
+      earL: 3,
+      earR: -3,
+      tail: -20,
+      front: 1,
+      tongue: 0
+    },
+    lie: {
+      ...g,
+      bodyRot: -5,
+      bodyY: 22,
+      headX: 12,
+      headY: 40,
+      headRot: 3,
+      fn: -84,
+      ff: -80,
+      sit: 1,
+      tail: 58,
+      tongue: 0
+    },
+    sleep: {
+      ...g,
+      bodyRot: -5,
+      bodyY: 22,
+      headX: 14,
+      headY: 44,
+      headRot: -8,
+      fn: -84,
+      ff: -80,
+      sit: 1,
+      tail: 64,
+      eyes: 0,
+      earL: 4,
+      earR: -4
+    },
+    settle: {
+      ...g,
+      bodyRot: -5,
+      bodyY: 22,
+      headX: 10,
+      headY: 16,
+      fn: -84,
+      ff: -80,
+      sit: 1,
+      tail: 40,
+      tongue: 1
+    },
+    hop: {
+      ...g,
+      bodyRot: -9,
+      stretch: 1.06,
+      headY: -6,
+      fn: -42,
+      ff: -32,
+      bn: 40,
+      bf: 30,
+      earL: -26,
+      earR: 26,
+      tail: -24,
+      tongue: 1
+    },
+    sniff: {
+      ...g,
+      bodyRot: 7,
+      headX: 16,
+      headY: 32,
+      headRot: 9,
+      tail: -14,
+      fn: 6,
+      ff: 4
+    },
+    bow: {
+      ...g,
+      bodyRot: 15,
+      bodyY: 2,
+      headX: 14,
+      headY: 30,
+      fn: -58,
+      ff: -52,
+      tail: -32,
+      happy: 1,
+      tongue: 1
+    },
+    beg: {
+      ...g,
+      bodyRot: -36,
+      bodyY: -6,
+      headX: -18,
+      headY: -18,
+      sit: 1,
+      fn: -70,
+      ff: -64,
+      tail: 30,
+      happy: 1,
+      tongue: 1
+    }
+  },
+  m = Object.keys(g),
+  y = {
+    phase: 0,
+    stride: 0,
+    time: 0,
+    wag: 0,
+    gazeX: 0,
+    gazeY: 0,
+    blink: 0,
+    ear: 0
+  },
+  b = t => Math.round(100 * t) / 100,
+  x = (t, [e, a]) => `rotate(${b(t)} ${e} ${a})`;
+const __ex_u_68 = "#f9b9a6";
+const __ex_N_69 = "#a24a1a";
+const __ex_e_70 = 98;
+const __ex_O_71 = "#f2be6b";
+const __ex_l_72 = "#fbe3b4";
+const __ex_Q_73 = "#e4a352";
+const __ex_x_74 = 228;
+const __ex_M_75 = s;
+const __ex_s_76 = "#2a170e";
+const __ex_X_77 = {
+  shoulderN: i,
+  shoulderF: o,
+  hipN: n,
+  hipF: r,
+  tailBase: h
+};
+const __ex_a_78 = p;
+const __ex_o_79 = u;
+const __ex_p_80 = d;
+const __ex_t_81 = y;
+const __ex_T_82 = t => `M-3.5 ${t - 7} v5 M4.5 ${t - 7} v5`;
+const __ex_R_83 = 240;
+const __ex_W_84 = 300;
+const __ex_n_85 = function (t, e, a) {
+  let s = {
+    ...t
+  };
+  for (let i of m) s[i] = t[i] + (e[i] - t[i]) * a;
+  return s;
+};
+const __ex_F_86 = function (t, e = y) {
+  let d = Math.sin(e.phase),
+    f = Math.sin(e.phase + Math.PI),
+    p = 20 + 10 * e.stride,
+    g = (1 - Math.cos(2 * e.phase)) / 2,
+    u = +(e.stride > .01),
+    m = Math.sin(2.4 * e.time) * (1 - u),
+    w = t.bodyY - g * (2.5 + 4 * e.stride) * u + .6 * m,
+    M = t.bodyRot + 1.6 * Math.sin(e.phase) * u,
+    k = -t.bodyRot,
+    j = 5 + 17 * e.wag,
+    v = 1.2 + 2.6 * e.wag,
+    $ = t.tail + Math.sin(e.time * v * Math.PI * 2) * j,
+    T = -(1 - Math.cos(2 * e.phase - .7)) / 2 * (2 + 3 * e.stride) * u + .9 * m;
+  return {
+    body: `translate(${b(t.bodyX)} ${b(w)}) ${x(M, a)} translate(${a[0]} 0) scale(${b(t.stretch)} 1) translate(${-a[0]} 0)`,
+    fn: `translate(${i[0]} ${i[1]}) rotate(${b(t.fn + k + d * p * u)})`,
+    ff: `translate(${o[0]} ${o[1]}) rotate(${b(t.ff + k + f * p * u)})`,
+    bn: `translate(${n[0]} ${n[1]}) rotate(${b(t.bn + f * p * u)})`,
+    bf: `translate(${r[0]} ${r[1]}) rotate(${b(t.bf + d * p * u)})`,
+    tail: x($, h),
+    haunch: `translate(0 ${b(-(.06 * t.bodyRot))})`,
+    head: `translate(${b(t.headX)} ${b(t.headY + T)}) ${x(t.headRot + 1.4 * Math.sin(e.phase) * u, s)}`,
+    earL: x(t.earL + e.ear + 4 * Math.sin(2 * e.phase) * u, l),
+    earR: x(t.earR - e.ear - 4 * Math.sin(2 * e.phase) * u, c),
+    eyes: `translate(${b(3.4 * e.gazeX)} ${b(2.6 * e.gazeY)})`,
+    blink: `translate(0 ${b(98 * e.blink * .92)}) scale(1 ${b(1 - .92 * e.blink)})`,
+    openEyes: b(Math.max(0, t.eyes - t.happy)),
+    happyEyes: b(Math.min(t.happy, t.eyes)),
+    shutEyes: b(1 - t.eyes),
+    tongue: b(t.tongue * (1 - t.mouth)),
+    mouth: b(t.mouth),
+    backLegs: b(1 - t.sit),
+    haunchOpacity: b(t.sit * (1 - t.front)),
+    side: b(1 - t.front),
+    ledge: b(t.front),
+    shadow: `translate(${b(.6 * t.bodyX)} 0) scale(${b(1 - .05 * g * u)} 1)`,
+    shadowOpacity: b(.12 * (1 - t.front))
+  };
+};
+export { __ex_u_68 as u };
+export { __ex_N_69 as N };
+export { __ex_e_70 as e };
+export { __ex_O_71 as O };
+export { __ex_l_72 as l };
+export { __ex_Q_73 as Q };
+export { __ex_x_74 as x };
+export { __ex_M_75 as M };
+export { __ex_s_76 as s };
+export { __ex_X_77 as X };
+export { __ex_a_78 as a };
+export { __ex_o_79 as o };
+export { __ex_p_80 as p };
+export { __ex_t_81 as t };
+export { __ex_T_82 as T };
+export { __ex_R_83 as R };
+export { __ex_W_84 as W };
+export { __ex_n_85 as n };
+export { __ex_F_86 as F };
